@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="/css/main.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="js/app.min.js"></script>
   <title>ToDo List</title>
 </head>
 <body>
@@ -15,20 +16,20 @@
     </div>
     <div class="add-task grid__col is-5 grid">
       <div class="grid__col is-10 is-9--large">
-        <input type="text" name="task" class="add-task_input">
+        <input placeholder="Add New Task" type="text" name="task" class="add-task_input">
       </div>
       <div class="grid__col is-2">
-        <button type="submit" class="add-task_button btn">
+        <button id="task--button" onclick="togglePlusMinus(this.id)" type="submit" class="add-task__button btn">
           <i class="fa fa-plus"></i>&nbsp; Task
         </button>
       </div>
     </div>
     <div class="search grid__col is-4 grid">
       <div class="grid__col is-10 is-9--large">
-        <input type="text" name="search" class="search_input">
+        <input type="text" name="search" class="search__input">
       </div>
       <div class="grid__col is-2">
-        <button type="submit" class="search_button btn btn--ghost"><i class="fa fa-search"></i></button>
+        <button id="search--button" placeholder="Search" type="submit" class="search__button btn btn--ghost"><i class="fa fa-search"></i></button>
       </div>
     </div>
   </header>
@@ -36,17 +37,19 @@
   <div class="grid">
 
     <aside class="lists grid__col is-3 grid grid-center">
-      <h2 class="lists_title text-center">Lists</h2>
+      <h2 class="lists__title text-center">Lists</h2>
       <div class="grid__col is-12">
-        <button onclick="" class="lists_button btn"><i class="fa fa-plus"></i>&nbsp; List</button>
+        <button id="add-list" class="lists_button btn" onclick="togglePlusMinus(this.id)">
+          <i class="fa fa-plus"></i>&nbsp; New List
+        </button>
       </div>
 
-      <div class="lists_add-list grid__col is-12">
+      <div id="lists--add-list" class="lists__add-list grid__col is-12 hide">
         <label for="lists-input">List Title</label>
-        <input onkeyup="" type="text" name="lists-input" class="lists_input">
+        <input type="text" placeholder="New List Name" name="lists-input" class="lists__input">
         <label for="lists-tags">List Tags</label>
-        <input type="text" name="lists-tags" class="lists_tags">
-        <button onsubmit="" type="submit" class="btn"><i class="fa fa-tasks"></i>&nbsp; Create List</button>
+        <input type="text" placeholder="New List Tags" name="lists-tags" class="lists__tags">
+        <button onsubmit="" type="submit" class="btn"><i class="fa fa-list"></i>&nbsp; Create List</button>
       </div>
 
       <div class="grid__col is-10">
@@ -72,13 +75,13 @@
         <i class="fa fa-trash"></i>
       </div>
     </main>
-    
+
   </div>
 
 
 
   <script type="text/javascript">
-    windowaddEventListener('load', windowLoad);
+    window.addEventListener('load', windowLoad);
   </script>
 </body>
 </html>
