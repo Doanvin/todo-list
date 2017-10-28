@@ -46,10 +46,10 @@
 
       <div id="lists--add-list" class="lists__add-list grid__col is-12 hide">
         <label for="lists-input">List Title</label>
-        <input type="text" placeholder="New List Name" name="lists-input" class="lists__input">
+        <input type="text" placeholder="New List Name" name="lists--title" class="lists__input">
         <label for="lists-tags">List Tags</label>
-        <input type="text" placeholder="New List Tags" name="lists-tags" class="lists__tags">
-        <button onsubmit="" type="submit" class="btn"><i class="fa fa-list"></i>&nbsp; Create List</button>
+        <input type="text" placeholder="New List Tags" name="lists--tags" class="lists__tags">
+        <button id="lists--button" onclick="" type="submit" class="btn"><i class="fa fa-list"></i>&nbsp; Create List</button>
       </div>
 
       <div class="grid__col is-10">
@@ -66,11 +66,12 @@
     <main class="todo grid__col is-9 grid">
       <div class="grid__col is-1">
         <i class="fa fa-sort"></i>
+        <input type="checkbox">
       </div>
-      <div class="todo_task grid__col is-9">
+      <div ondblclick="editable(ev)" class="todo__task grid__col is-9">
         This is a new task
       </div>
-      <div class="todo_actions grid__col is-2 text-right">
+      <div class="todo__actions grid__col is-2 text-right">
         <i class="fa fa-pencil"></i>
         <i class="fa fa-trash"></i>
       </div>

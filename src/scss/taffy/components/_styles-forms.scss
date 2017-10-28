@@ -1,6 +1,6 @@
 /*******************************FORMS*******************************/
 
-input:not([type=submit]):not([type=button]),textarea,select{
+input:not([type=submit]):not([type=button]):not([type=checkbox]),textarea,select{
   -moz-appearance: none;
     -webkit-appearance: none;
     -webkit-box-align: center;
