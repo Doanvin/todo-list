@@ -20,6 +20,7 @@ gulp.task('js-minify', function () {
     return gulp.src('src/js/*.js')
         .pipe(plumber())
         .pipe(babel())
+        .pipe(gulp.dest('dist/js'))
         .pipe(sourcemaps.init())
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())

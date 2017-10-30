@@ -1,1 +1,17 @@
 @import "./taffy/taffy";
+
+.topbar {
+  background: lighten(red, 10);
+}
+
+.lists {
+  background: lighten(blue, 15);
+}
+
+.todo {
+  background: lighten(green, 10);
+
+  &__list {
+    list-style: none;
+  }
+}
