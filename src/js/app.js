@@ -5,10 +5,10 @@ function windowLoad() {
     // add click event listener to add-list button
     toggleDisplay('add-list', 'lists--add-list');
 
-    onInputEnter('input[name="task"]', 'task-button');
-    onInputEnter('input[name="search"]', 'search--button');
-    onInputEnter('input[name="lists--title"]', 'lists--button');
-    onInputEnter('input[name="lists--tags"]', 'lists--button');
+    onInputEnter('task', 'task-button');
+    onInputEnter('search', 'search--button');
+    onInputEnter('lists--title', 'lists--button');
+    onInputEnter('lists--tags', 'lists--button');
 
     currentUser.renderLists();
     currentUser.renderSelectList();
@@ -20,7 +20,8 @@ function windowLoad() {
 function onInputEnter(inputName, buttonId) {
     // param: inputName = string, querySelector
     // param: buttonId = string, button id
-    document.querySelector(inputName)
+    const query = 'input[name="' + inputName + '"]';
+    document.querySelector(query)
         .addEventListener('keyup', (event) => {
             event.preventDefault();
             if (event.keyCode == 13) {
@@ -44,8 +45,9 @@ function newTaskOnClick() {
 }
 
 
-// toggles display: none using hide class
+
 function toggleDisplay(buttonId, targetId) {
+    // toggles display: none using hide class
     document.getElementById(buttonId).addEventListener('click', () => {
         document.getElementById(targetId).classList.toggle('hide');
     });
@@ -57,21 +59,6 @@ function togglePlusMinus(buttonId) {
     document.getElementById(buttonId).firstChild.classList.toggle('fa-plus');
     document.getElementById(buttonId).firstChild.classList.toggle('fa-minus');
 }
-
-
-function toCamelCase(el) {
-    el.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-        return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-    }).replace(/\s+/g, '');
-}
-
-
-// function createList(listTitle, tags) {
-//     let title = toCamelCase(listTitle);
-//     (listTitle == title)
-//         ? listTitle = new List(listTitle, tags)
-//         : title = new List(listTitle, tags);
-// }
 
 
 // DATA & TO DO LIST SECTION
@@ -93,7 +80,7 @@ class User {
     }
 
     addList(list) {
-        // use unshift instaed of push to put it first in index
+        // use unshift instaed of push to set it as the first index
         return this.lists.unshift(list);
     }
 
@@ -103,10 +90,13 @@ class User {
     }
 
     createSelectList() {
+        // template for the select#select-list element
         let selectList = [];
         for (let i = 0; i < this.lists.length; i++) {
             const selectListTamplate =
-            '<option value="' + this.lists[i].title + '">' + this.lists[i].title + '</option>';
+            `<option value="${this.lists[i].title}">
+              ${this.lists[i].title}
+            </option>`;
             selectList.push(selectListTamplate);
         }
         return ''.concat(...selectList);
@@ -119,12 +109,13 @@ class User {
     }
 
     createLists() {
+        // template for the menu ul#lists displaying user.lists
         let lists = [];
         for (let i = 0; i < this.lists.length; i++) {
             let listsTemplate =
-            '<li onclick="' + this.lists[i].title + '.renderTodoList();" class="lists__item">' +
-              this.lists[i].title +
-            '</li>';
+            `<li onclick="${this.lists[i].title}.renderTodoList();" class="lists__item">
+              ${this.lists[i].title}
+            </li>`;
             lists.push(listsTemplate);
         }
         return ''.concat(...lists);
@@ -171,15 +162,16 @@ class List {
     }
 
     createTodoList() {
+        // template for main#todo-list section
         let todoList = [];
         for (let i = 0; i < this.tasks.length; i++) {
             let taskTemplate =
             `<div class="todo__item grid">
               <div class="grid__col is-1">
                 <i class="fa fa-sort"></i>
-                <input type="checkbox">
+                <input type="checkbox" data-for="task${i}">
               </div>
-              <div ondblclick="editable(this)" class="todo__task grid__col is-9">` + this.tasks[i] + `</div>
+              <div ondblclick="editable(this)" class="todo__task grid__col is-9">${this.tasks[i]}</div>
               <div class="todo__actions grid__col is-2">
                 <i class="fa fa-pencil"></i>
                 <i class="fa fa-trash"></i>
@@ -230,3 +222,33 @@ Website.addTask('Trash (remove task) functionality');
 Website.addTask('Strikethrough when checked');
 Website.addTask('Mark completed when checked');
 currentUser.addList(Website);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function toCamelCase(el) {
+//     el.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+//         return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+//     }).replace(/\s+/g, '');
+// }
+
+
+// function createList(listTitle, tags) {
+//     let title = toCamelCase(listTitle);
+//     (listTitle == title)
+//         ? listTitle = new List(listTitle, tags)
+//         : title = new List(listTitle, tags);
+// }

@@ -12,10 +12,10 @@ $green: #2d882d;
   background: lighten($blue, 25);
 
   &__item {
+    margin-bottom: .25rem;
+    padding-left: .25rem;
     border: 2px solid black;
     border-radius: 5px;
-    padding-left: .25rem;
-    margin-bottom: .25rem;
     list-style: none;
     cursor: pointer;
 
@@ -23,12 +23,11 @@ $green: #2d882d;
       border-color: $red;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
     }
-  }
 }
 
 .todo {
-  background: lighten($green, 25);
   min-height: 80vh;
+  background: lighten($green, 25);
 
   &__list {
     list-style: none;
