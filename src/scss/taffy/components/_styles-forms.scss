@@ -1,6 +1,6 @@
 /*******************************FORMS*******************************/
 
-input:not([type=submit]):not([type=button]):not([type=checkbox]),textarea,select{
+input:not([type=submit]):not([type=button]):not([type=checkbox]),textarea{
   -moz-appearance: none;
     -webkit-appearance: none;
     -webkit-box-align: center;
@@ -10,7 +10,7 @@ input:not([type=submit]):not([type=button]):not([type=checkbox]),textarea,select
     border-radius: 3px;
     box-shadow: none;
     display: inline-flex;
-    height: 2.25rem;
+    height: 2rem;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
@@ -29,6 +29,18 @@ input:not([type=submit]):not([type=button]):not([type=checkbox]),textarea,select
     width: 100%;
     margin-bottom: .5rem;
     margin-top: .15rem;
+}
+
+select {
+    display: block;
+    height: 2rem;
+    padding-bottom: calc(0.375rem - 1px);
+    padding-left: calc(0.625rem - 1px);
+    padding-right: calc(0.625rem - 1px);
+    padding-top: calc(0.375rem - 1px);
+    margin-bottom: .5rem;
+    margin-top: .15rem;
+    width: 100%;
 }
 
 textarea{

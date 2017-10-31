@@ -11,35 +11,38 @@
 </head>
 <body>
   <header class="topbar grid">
-    <div class="logo grid__col is-3">
+    <div class="logo grid__col is-2">
       <img style="max-width:200px;max-height:90px;" class="media" src="./img/logo_placeholder.png" alt="ToDo list logo">
     </div>
-    <div class="add-task grid__col is-5 grid">
-      <div class="grid__col is-10 is-9--large">
-        <input placeholder="Add New Task" type="text" name="task" class="add-task_input">
+    <div class="add-task grid__col is-6 grid">
+      <div class="grid__col is-6">
+        <input placeholder="Add New Task" type="text" name="task" class="add-task_input"/>
       </div>
-      <div class="grid__col is-2">
-        <button id="task--button" onclick="togglePlusMinus(this.id)" type="submit" class="add-task__button btn">
+      <div class="grid__col is-3">
+        <select name="list" id="select-list"></select>
+      </div>
+      <div class="grid__col is-3">
+        <button id="task-button" type="submit" class="add-task__button btn">
           <i class="fa fa-plus"></i>&nbsp; Task
         </button>
       </div>
     </div>
     <div class="search grid__col is-4 grid">
-      <div class="grid__col is-10 is-9--large">
-        <input type="text" placeholder="Search" name="search" class="search__input">
+      <div class="grid__col is-10">
+        <input title="Don't touch that!" type="text" placeholder="Search" name="search" class="search__input" disabled="">
       </div>
       <div class="grid__col is-2">
-        <button id="search--button" type="submit" class="search__button btn btn--ghost"><i class="fa fa-search"></i></button>
+        <button id="search--button" title="Don't touch this either!" type="submit" class="search__button btn btn--ghost" disabled=""><i class="fa fa-search"></i></button>
       </div>
     </div>
   </header>
 
   <div class="grid">
 
-    <aside class="lists grid__col is-3 grid grid-center">
+    <aside class="lists grid__col is-3 grid">
       <h2 class="lists__title">Lists</h2>
 
-      <div class="lists__display grid__col is-10">
+      <div class="lists__display grid__col is-12">
         <ul id="lists" class="lists__list">
           <li class="lists__item">List 1</li>
           <li class="lists__item">List 2</li>
@@ -65,56 +68,20 @@
     </aside>
 
     <main id="todo-list" class="todo grid__col is-9">
+
       <div class="todo__item grid">
         <div class="grid__col is-1">
           <i class="fa fa-sort"></i>
           <input type="checkbox">
         </div>
         <div class="todo__task grid__col is-9" ondblclick="editable(this)">
-          Task 1
+          Select a list from the menu.
         </div>
         <div class="todo__actions grid__col is-2">
           <i class="fa fa-pencil"></i>
           <i class="fa fa-trash"></i>
         </div>
       </div>
-
-      <div class="todo__item grid">
-        <div class="grid__col is-1">
-          <i class="fa fa-sort"></i>
-          <input type="checkbox">
-        </div>
-        <div ondblclick="editable(this)" class="todo__task grid__col is-9">Task 2</div>
-        <div class="todo__actions grid__col is-2">
-          <i class="fa fa-pencil"></i>
-          <i class="fa fa-trash"></i>
-        </div>
-      </div>
-
-      <div class="todo__item grid">
-        <div class="grid__col is-1">
-          <i class="fa fa-sort"></i>
-          <input type="checkbox">
-        </div>
-        <div ondblclick="editable(this)" class="todo__task grid__col is-9">Task 3</div>
-        <div class="todo__actions grid__col is-2">
-          <i class="fa fa-pencil"></i>
-          <i class="fa fa-trash"></i>
-        </div>
-      </div>
-
-      <div class="todo__item grid">
-        <div class="grid__col is-1">
-          <i class="fa fa-sort"></i>
-          <input type="checkbox">
-        </div>
-        <div ondblclick="editable(this)" class="todo__task grid__col is-9">Task 4</div>
-        <div class="todo__actions grid__col is-2">
-          <i class="fa fa-pencil"></i>
-          <i class="fa fa-trash"></i>
-        </div>
-      </div>
-
 
     </main>
 

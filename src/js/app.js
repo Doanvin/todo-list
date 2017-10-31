@@ -5,12 +5,15 @@ function windowLoad() {
     // add click event listener to add-list button
     toggleDisplay('add-list', 'lists--add-list');
 
-    onInputEnter('input[name="task"]', 'task--button');
+    onInputEnter('input[name="task"]', 'task-button');
     onInputEnter('input[name="search"]', 'search--button');
     onInputEnter('input[name="lists--title"]', 'lists--button');
     onInputEnter('input[name="lists--tags"]', 'lists--button');
 
     currentUser.renderLists();
+    currentUser.renderSelectList();
+    newTaskOnClick();
+
 }
 
 // SHARED JS SECTION //
@@ -24,6 +27,20 @@ function onInputEnter(inputName, buttonId) {
                 document.getElementById(buttonId).click();
             }
         });
+}
+
+
+function newTaskOnClick() {
+    return document.getElementById('task-button').addEventListener('click', () => {
+        let task = document.querySelector('input[name="task"]').value;
+        let selectList = document.getElementById('select-list').value;
+        currentUser.lists.forEach(list => {
+            if (list.title == selectList) {
+                list.addTask(task);
+                list.renderTodoList();
+            }
+        });
+    });
 }
 
 
@@ -49,12 +66,12 @@ function toCamelCase(el) {
 }
 
 
-function createList(listTitle, tags) {
-    let title = toCamelCase(listTitle);
-    (listTitle == title)
-        ? listTitle = new List(listTitle, tags)
-        : title = new List(listTitle, tags);
-}
+// function createList(listTitle, tags) {
+//     let title = toCamelCase(listTitle);
+//     (listTitle == title)
+//         ? listTitle = new List(listTitle, tags)
+//         : title = new List(listTitle, tags);
+// }
 
 
 // DATA & TO DO LIST SECTION
@@ -76,19 +93,36 @@ class User {
     }
 
     addList(list) {
-        this.lists.push(list);
+        // use unshift instaed of push to put it first in index
+        return this.lists.unshift(list);
     }
 
     removeList(list) {
         const index = this.lists.indexOf(list);
-        this.lists.splice(index, 1);
+        return this.lists.splice(index, 1);
+    }
+
+    createSelectList() {
+        let selectList = [];
+        for (let i = 0; i < this.lists.length; i++) {
+            const selectListTamplate =
+            '<option value="' + this.lists[i].title + '">' + this.lists[i].title + '</option>';
+            selectList.push(selectListTamplate);
+        }
+        return ''.concat(...selectList);
+    }
+
+    renderSelectList() {
+        const selectList = this.createSelectList();
+        return document.getElementById('select-list').innerHTML = selectList;
+
     }
 
     createLists() {
         let lists = [];
         for (let i = 0; i < this.lists.length; i++) {
             let listsTemplate =
-            '<li class="lists__item">' +
+            '<li onclick="' + this.lists[i].title + '.renderTodoList();" class="lists__item">' +
               this.lists[i].title +
             '</li>';
             lists.push(listsTemplate);
@@ -98,9 +132,7 @@ class User {
 
     renderLists(listsId = 'lists') {
         const lists = this.createLists();
-        let listOfLists = document.getElementById(listsId);
-        if (listOfLists === null) {listOfLists = document.getElementsByClassName('lists__list')[0];}
-        return listOfLists.innerHTML = lists;
+        return document.getElementById(listsId).innerHTML = lists;
 
     }
 
@@ -112,7 +144,7 @@ class List {
         this.listId = ID();
         this.userId = username.userId;
         this.title = title;
-        this.tags = tags.replace(/\w+/, '').split(',');
+        this.tags = tags.split(', ');
         this.tasks = [];
     }
 
@@ -130,7 +162,7 @@ class List {
 
     addTask(task) {
         if (typeof task == 'string') {
-            return this.tasks.push(task);
+            return this.tasks.unshift(task);
         }
     }
 
@@ -159,8 +191,9 @@ class List {
     }
 
     renderTodoList(listsId = 'todo-list') {
-        const todos = this.createTodoList;
+        const todos = this.createTodoList();
         document.getElementById(listsId).innerHTML = todos;
+        return todos;
     }
 
 }
@@ -182,13 +215,18 @@ let currentUser = Donavin;
 
 // TEST LISTS
 let Dog = new List('Dog', 'animal, pet');
-Dog.addTask('walk');
-Dog.addTask('bring to park');
-Dog.addTask('give food');
+Dog.addTask('Walk');
+Dog.addTask('Bring to park');
+Dog.addTask('Give food');
 currentUser.addList(Dog);
 
-let JsNinja = new List('Javascript Ninja', 'web dev, development, front-end');
-JsNinja.addTask('drag and drop functionality');
-JsNinja.addTask('filter by tags');
-JsNinja.addTask('local storage');
-currentUser.addList(JsNinja);
+let Website = new List('Website', 'web dev, development, front-end');
+Website.addTask('Drag and drop functionality');
+Website.addTask('Filter by tags');
+Website.addTask('Local storage');
+Website.addTask('Create list functionality');
+Website.addTask('Add task functionality');
+Website.addTask('Trash (remove task) functionality');
+Website.addTask('Strikethrough when checked');
+Website.addTask('Mark completed when checked');
+currentUser.addList(Website);

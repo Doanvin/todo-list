@@ -1,15 +1,34 @@
 @import "./taffy/taffy";
 
+$red: #aa3939;
+$blue: #266;
+$green: #2d882d;
+
 .topbar {
-  background: lighten(red, 10);
+  background: lighten($red, 5);
 }
 
 .lists {
-  background: lighten(blue, 15);
+  background: lighten($blue, 25);
+
+  &__item {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: .25rem;
+    margin-bottom: .25rem;
+    list-style: none;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $red;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+  }
 }
 
 .todo {
-  background: lighten(green, 10);
+  background: lighten($green, 25);
+  min-height: 80vh;
 
   &__list {
     list-style: none;
