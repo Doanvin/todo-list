@@ -6,10 +6,15 @@ $green: #2d882d;
 
 .topbar {
   background: lighten($red, 5);
+  box-shadow: 0 0 50px rgba(0, 0, 0, .9);
+  margin-bottom: 2px;
 }
 
 .lists {
-  background: lighten($blue, 25);
+  background: lighten($green, 25);
+  border-width: medium;
+  border-style: none dashed none none;
+  border-color: rgba(0, 0, 0, 0.5);
 
   &__item {
     margin-bottom: .25rem;

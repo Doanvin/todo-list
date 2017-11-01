@@ -22,19 +22,6 @@ function windowLoad() {
 }
 
 // SHARED JS SECTION //
-// const onCheckboxClick = () => {
-//     document.querySelectorAll('input[type="checkbox"]')
-//         .addEventListener('click', toggleComplete(this.dataset.key));
-// };
-//
-//
-// const toggleComplete = (key) => {
-//     const query = `div[data-index="${key}"]`;
-//     const task = document.querySelector(query);
-//     task.classList.toggle('complete');
-// };
-
-
 function onInputEnter(inputName, buttonId) {
     // param: inputName = string, querySelector
     // param: buttonId = string, button id
@@ -63,7 +50,6 @@ function onNewTaskClick() {
 }
 
 
-
 function toggleDisplay(buttonId, targetId) {
     // toggles display: none using hide class
     document.getElementById(buttonId).addEventListener('click', () => {
@@ -79,18 +65,11 @@ function togglePlusMinus(buttonId) {
 }
 
 
+
 // DATA & TO DO LIST SECTION
-var ID = function () {
-    // Math.random should be unique because of its seeding algorithm.
-    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-    // after the decimal.
-    return '_' + Math.random().toString(36).substr(2, 9);
-};
-
-
 class User {
     constructor(email, username, password) {
-        this.userId = ID();
+        this.userId = Date.now().toString();
         this.email = email;
         this.username = username;
         this.password = password;
@@ -111,10 +90,11 @@ class User {
         // template for the select#select-list element
         let selectList = [];
         for (let i = 0; i < this.lists.length; i++) {
-            const selectListTamplate =
+            let selectListTamplate =
             `<option value="${this.lists[i].title}">
               ${this.lists[i].title}
             </option>`;
+            selectListTamplate.replace(/\\n|\\|\s{3,}/, '');
             selectList.push(selectListTamplate);
         }
         return ''.concat(...selectList);
@@ -150,7 +130,7 @@ class User {
 
 class List {
     constructor(title, tags, username = currentUser) {
-        this.listId = ID();
+        this.listId = Date.now().toString();
         this.userId = username.userId;
         this.title = title;
         this.tags = tags.split(', ');
@@ -218,7 +198,7 @@ class List {
     renderTodoList(listsId = 'todo-list') {
         const todos = this.createTodoList();
         document.getElementById(listsId).innerHTML = todos;
-        setTimeout(this.onCheckboxClick(), 5000);
+        this.onCheckboxClick();
         return todos;
     }
 
@@ -256,33 +236,3 @@ Website.addTask('Trash (remove task) functionality');
 Website.addTask('Strikethrough when checked');
 Website.addTask('Mark completed when checked');
 currentUser.addList(Website);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function toCamelCase(el) {
-//     el.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-//         return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-//     }).replace(/\s+/g, '');
-// }
-
-
-// function createList(listTitle, tags) {
-//     let title = toCamelCase(listTitle);
-//     (listTitle == title)
-//         ? listTitle = new List(listTitle, tags)
-//         : title = new List(listTitle, tags);
-// }
