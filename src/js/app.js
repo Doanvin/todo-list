@@ -2,25 +2,43 @@
 function windowLoad() {
     // function executed on window.load event
 
+    // Render functions
+    currentUser.renderLists();
+    currentUser.renderSelectList();
+
     // add click event listener to add-list button
     toggleDisplay('add-list', 'lists--add-list');
 
+    // add keyup listeners
     onInputEnter('task', 'task-button');
     onInputEnter('search', 'search--button');
     onInputEnter('lists--title', 'lists--button');
     onInputEnter('lists--tags', 'lists--button');
 
-    currentUser.renderLists();
-    currentUser.renderSelectList();
-    newTaskOnClick();
+    // add click listeners
+    onNewTaskClick();
+
 
 }
 
 // SHARED JS SECTION //
+// const onCheckboxClick = () => {
+//     document.querySelectorAll('input[type="checkbox"]')
+//         .addEventListener('click', toggleComplete(this.dataset.key));
+// };
+//
+//
+// const toggleComplete = (key) => {
+//     const query = `div[data-index="${key}"]`;
+//     const task = document.querySelector(query);
+//     task.classList.toggle('complete');
+// };
+
+
 function onInputEnter(inputName, buttonId) {
     // param: inputName = string, querySelector
     // param: buttonId = string, button id
-    const query = 'input[name="' + inputName + '"]';
+    const query = `input[name="${inputName}"]`;
     document.querySelector(query)
         .addEventListener('keyup', (event) => {
             event.preventDefault();
@@ -31,7 +49,7 @@ function onInputEnter(inputName, buttonId) {
 }
 
 
-function newTaskOnClick() {
+function onNewTaskClick() {
     return document.getElementById('task-button').addEventListener('click', () => {
         let task = document.querySelector('input[name="task"]').value;
         let selectList = document.getElementById('select-list').value;
@@ -169,9 +187,9 @@ class List {
             `<div class="todo__item grid">
               <div class="grid__col is-1">
                 <i class="fa fa-sort"></i>
-                <input type="checkbox" data-for="task${i}">
+                <input type="checkbox" data-key="task${i}">
               </div>
-              <div ondblclick="editable(this)" class="todo__task grid__col is-9">${this.tasks[i]}</div>
+              <div ondblclick="editable(this)" data-index="task${i}" class="todo__task grid__col is-9">${this.tasks[i]}</div>
               <div class="todo__actions grid__col is-2">
                 <i class="fa fa-pencil"></i>
                 <i class="fa fa-trash"></i>
@@ -182,9 +200,25 @@ class List {
         return ''.concat(...todoList);
     }
 
+    toggleComplete(el) {
+        const query = `div[data-index="${el.dataset.key}"]`;
+        const task = document.querySelector(query);
+        task.classList.toggle('complete');
+    }
+
+    onCheckboxClick() {
+        let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((el) => {
+            el.addEventListener('click', (ev) => {
+                this.toggleComplete(ev.target);
+            });
+        });
+    }
+
     renderTodoList(listsId = 'todo-list') {
         const todos = this.createTodoList();
         document.getElementById(listsId).innerHTML = todos;
+        setTimeout(this.onCheckboxClick(), 5000);
         return todos;
     }
 
